@@ -1,11 +1,14 @@
-# Web Example
+# Web Example (rust-core)
 
-TypeScript + Vite client for the shared API contract.
+This client uses wasm-bindgen output from `crates/wasm/pkg`.
 
-- On `main`, uses `src/mockBackend.ts`.
-- On implementation branches, replace backend wiring with WASM package bindings while keeping API calls stable.
+## Build wasm package
 
-## Run
+```bash
+wasm-pack build ../../crates/wasm --target bundler --out-dir pkg
+```
+
+## Run web app
 
 ```bash
 npm install
