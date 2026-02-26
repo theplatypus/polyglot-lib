@@ -1,27 +1,23 @@
-# Python Example
+# Python Example (cpp-core)
 
-NumPy-first client example for the shared API contract.
+This client uses the compiled `mylib_cpp` pybind11 extension from `cpp/pybind`.
 
-- On `main`, uses pure-Python mock backend.
-- On implementation branches, `MyLibClient` is expected to switch to compiled extension bindings with same methods.
-
-## Setup
+## Build extension
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .[dev]
+cmake -S ../../cpp -B ../../cpp/build -DMYLIB_BUILD_PYTHON=ON
+cmake --build ../../cpp/build --target mylib_cpp
 ```
 
 ## Run
 
 ```bash
-python -m examples.run_demo
-pytest
+PYTHONPATH=../../cpp/build/python:src python -m examples.run_demo
+PYTHONPATH=../../cpp/build/python:src pytest -q tests
 ```
 
 Optional Polars integration:
 
 ```bash
-python -m examples.polars_demo
+PYTHONPATH=../../cpp/build/python:src python -m examples.polars_demo
 ```
