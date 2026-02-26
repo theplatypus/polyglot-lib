@@ -1,0 +1,52 @@
+name: ci-rust-core
+
+on:
+  push:
+    branches: [rust-core]
+  pull_request:
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+      - run: cargo test --workspace
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --upgrade pip
+      - run: pip install maturin numpy pytest
+      - run: maturin develop --manifest-path crates/py/Cargo.toml
+      - run: pip install -e examples/python
+      - run: PYTHONPATH=examples/python/src pytest -q examples/python/tests
+
+  wasm-and-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo install wasm-pack
+      - run: wasm-pack build crates/wasm --target bundler --out-dir pkg
+      - run: wasm-pack test --node crates/wasm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+        working-directory: examples/web
+      - run: npm run typecheck
+        working-directory: examples/web
+      - run: npm run lint
+        working-directory: examples/web
+      - run: npm run build
+        working-directory: examples/web
