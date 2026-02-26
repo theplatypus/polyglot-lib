@@ -1,22 +1,29 @@
-# C++ Example
+# C++ Example (cpp-core)
 
-This example consumes the C ABI declared in `include/mylib.h`.
+This client consumes the C ABI declared in `include/mylib.h`.
 
-- On `main`, it links a local mock backend (`src/mock_mylib.c`).
-- On `rust-core` or `cpp-core`, disable mock mode and link the produced real library.
-
-## Build (main mock mode)
+## Build C++ core C ABI
 
 ```bash
-cmake -S . -B build
+cmake -S ../../cpp -B ../../cpp/build -DMYLIB_BUILD_PYTHON=OFF
+cmake --build ../../cpp/build --target mylib_c_api
+```
+
+## Build example against C ABI
+
+```bash
+cmake -S . -B build \
+  -DMYLIB_USE_MOCK=OFF \
+  -DMYLIB_LIB=$PWD/../../cpp/build/libmylib_c_api.a \
+  -DMYLIB_CORE_LIB=$PWD/../../cpp/build/libmylib_core.a
 cmake --build build
 ./build/mylib_cpp_example
 ```
 
-## Build (real backend)
+Mock mode remains available:
 
 ```bash
-cmake -S . -B build -DMYLIB_USE_MOCK=OFF -DMYLIB_LIB=/path/to/libmylib.so
+cmake -S . -B build -DMYLIB_USE_MOCK=ON
 cmake --build build
 ./build/mylib_cpp_example
 ```
