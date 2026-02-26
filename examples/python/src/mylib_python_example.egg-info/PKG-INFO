@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: mylib-python-example
+Version: 0.1.0
+Summary: Client example for polyglot_lib API (mock backend on main branch)
+Requires-Python: >=3.10
+Requires-Dist: numpy>=1.26
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"
+Requires-Dist: ruff>=0.3.0; extra == "dev"
+Requires-Dist: mypy>=1.8; extra == "dev"
+Requires-Dist: polars>=0.20; extra == "dev"
+Requires-Dist: pyarrow>=15.0; extra == "dev"

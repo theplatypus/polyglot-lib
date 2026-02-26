@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+src/examples/__init__.py
+src/examples/api.py
+src/examples/backend_mock.py
+src/examples/backend_native.py
+src/examples/polars_demo.py
+src/examples/run_demo.py
+src/mylib_python_example.egg-info/PKG-INFO
+src/mylib_python_example.egg-info/SOURCES.txt
+src/mylib_python_example.egg-info/dependency_links.txt
+src/mylib_python_example.egg-info/requires.txt
+src/mylib_python_example.egg-info/top_level.txt
+tests/test_api.py
