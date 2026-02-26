@@ -1,0 +1,11 @@
+[package]
+name = "mylib-c-abi"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "mylib"
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+mylib-core = { path = "../core" }
