@@ -1,0 +1,13 @@
+[build-system]
+requires = ["maturin>=1.5,<2"]
+build-backend = "maturin"
+
+[project]
+name = "mylib-rs"
+version = "0.1.0"
+requires-python = ">=3.10"
+description = "PyO3 bindings for polyglot_lib rust-core branch"
+
+[tool.maturin]
+module-name = "mylib_rs"
+manifest-path = "Cargo.toml"

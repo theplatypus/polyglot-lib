@@ -1,0 +1,13 @@
+[package]
+name = "mylib-py"
+version.workspace = true
+edition.workspace = true
+
+[lib]
+name = "mylib_rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+mylib-core = { path = "../core" }
+pyo3 = { version = "0.21", features = ["extension-module", "abi3-py310"] }
+numpy = "0.21"

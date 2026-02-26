@@ -1,27 +1,26 @@
-# Python Example
+# Python Example (rust-core)
 
-NumPy-first client example for the shared API contract.
-
-- On `main`, uses pure-Python mock backend.
-- On implementation branches, `MyLibClient` is expected to switch to compiled extension bindings with same methods.
+This client uses the compiled `mylib_rs` PyO3 extension from `crates/py`.
 
 ## Setup
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -e .[dev]
+pip install --upgrade pip maturin
+maturin develop --manifest-path ../../crates/py/Cargo.toml
+pip install -e .
 ```
 
 ## Run
 
 ```bash
-python -m examples.run_demo
-pytest
+PYTHONPATH=src python -m examples.run_demo
+PYTHONPATH=src pytest -q tests
 ```
 
 Optional Polars integration:
 
 ```bash
-python -m examples.polars_demo
+PYTHONPATH=src python -m examples.polars_demo
 ```
