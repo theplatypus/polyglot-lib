@@ -1,13 +1,17 @@
-# Web Example
+# Web Example (cpp-core)
 
-TypeScript + Vite client for the shared API contract.
+This client uses Emscripten output from `cpp/wasm/build`.
 
-- On `main`, uses `src/mockBackend.ts`.
-- On implementation branches, replace backend wiring with WASM package bindings while keeping API calls stable.
-
-## Run
+## Build wasm artifacts
 
 ```bash
+./cpp/wasm/build.sh
+```
+
+## Run web app
+
+```bash
+cd examples/web
 npm install
 npm run dev
 ```
