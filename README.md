@@ -31,6 +31,59 @@ The client examples under `examples/python`, `examples/cpp`, and `examples/web` 
 /examples/web
 ```
 
+## Install from GitHub Releases (no build)
+
+Use the branch Release page and download prebuilt assets for your target OS/arch.
+
+### Python wheel
+
+1. Open the Release for your version tag (for example, `v0.1.0`).
+2. Download the wheel asset matching your OS and Python ABI compatibility.
+3. Install it directly:
+
+```bash
+python -m pip install /path/to/downloaded/mylib_rs-...whl
+```
+
+If you also want to run the Python example client:
+
+```bash
+python -m pip install -e "examples/python[dev]"
+PYTHONPATH=examples/python/src python -m examples.run_demo
+```
+
+### WASM package
+
+1. Download `mylib-<version>-wasm-pkg.zip` from the Release assets.
+2. Unzip so that `crates/wasm/pkg` exists locally.
+3. Run the web example:
+
+```bash
+unzip /path/to/mylib-<version>-wasm-pkg.zip -d /tmp
+rm -rf crates/wasm/pkg
+cp -R /tmp/pkg crates/wasm/pkg
+cd examples/web
+npm install
+npm run dev
+```
+
+### C/C++ native library + headers
+
+1. Download:
+   - `mylib-<version>-headers.zip`
+   - `mylib-<version>-<os>-<arch>-native.zip`
+2. Extract both archives into a local folder.
+3. Link your CMake target against the shared/static library and include headers:
+
+```cmake
+set(MYLIB_ROOT "/absolute/path/to/extracted/mylib")
+
+target_include_directories(my_target PRIVATE "${MYLIB_ROOT}/include")
+target_link_libraries(my_target PRIVATE "${MYLIB_ROOT}/libmylib.so") # Linux example
+# macOS: libmylib.dylib
+# Windows: mylib.lib (with mylib.dll beside executable)
+```
+
 ## 1) Rust build, lint, tests
 
 ```bash
