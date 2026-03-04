@@ -6,7 +6,13 @@ from dataclasses import dataclass
 import numpy as np
 import numpy.typing as npt
 
-import mylib_rs
+try:
+    import mylib_rs
+except ImportError as exc:
+    raise ImportError(
+        "mylib_rs is not installed. Install a wheel from GitHub Releases or build/install it "
+        "locally via `maturin build|develop --manifest-path crates/py/Cargo.toml`."
+    ) from exc
 
 FloatArray = npt.NDArray[np.float64]
 

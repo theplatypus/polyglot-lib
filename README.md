@@ -49,7 +49,7 @@ If you also want to run the Python example client:
 
 ```bash
 python -m pip install -e "examples/python[dev]"
-PYTHONPATH=examples/python/src python -m examples.run_demo
+python -m examples.run_demo
 ```
 
 ### WASM package
@@ -100,15 +100,16 @@ Build/install extension into active venv:
 python -m venv .venv
 source .venv/bin/activate
 pip install --upgrade pip maturin
-maturin develop --manifest-path crates/py/Cargo.toml
-pip install -e examples/python
+maturin build --manifest-path crates/py/Cargo.toml --release
+pip install --no-index --find-links target/wheels mylib-rs
+pip install -e "examples/python[dev]"
 ```
 
 Run python demo/tests:
 
 ```bash
-PYTHONPATH=examples/python/src python -m examples.run_demo
-PYTHONPATH=examples/python/src pytest -q examples/python/tests
+python -m examples.run_demo
+pytest -q examples/python/tests
 ```
 
 Wheel build option:

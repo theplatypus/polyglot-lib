@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mylib-python-example"
 version = "0.1.0"
-description = "Client example for polyglot_lib API (mock backend on main branch)"
+description = "Client example for polyglot_lib API using installed mylib_rs wheels"
 requires-python = ">=3.10"
 dependencies = [
   "numpy>=1.26",

@@ -144,7 +144,7 @@ jobs:
           python -m pip install -e "examples/python[dev]"
 
       - name: Run pytest against examples/python/tests
-        run: PYTHONPATH=examples/python/src pytest -q examples/python/tests
+        run: pytest -q examples/python/tests
 
   build-wasm:
     name: WASM bundle
