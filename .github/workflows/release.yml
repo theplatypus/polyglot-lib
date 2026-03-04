@@ -54,6 +54,11 @@ jobs:
             asset_os: linux
             asset_arch: x86_64
             use_manylinux: true
+          - os: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-gnu
+            asset_os: linux
+            asset_arch: aarch64
+            use_manylinux: true
           # - os: macos-13
           #   target: x86_64-apple-darwin
           #   asset_os: macos
