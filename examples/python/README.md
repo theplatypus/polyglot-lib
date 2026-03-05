@@ -1,23 +1,37 @@
 # Python Example (cpp-core)
 
-This client uses the compiled `mylib_cpp` pybind11 extension from `cpp/pybind`.
+This client expects `mylib_cpp` to be installed as a wheel (release wheel or locally built wheel).
 
-## Build extension
+## Option 1: Install from GitHub Release wheel
 
 ```bash
-cmake -S ../../cpp -B ../../cpp/build -DMYLIB_BUILD_PYTHON=ON
-cmake --build ../../cpp/build --target mylib_cpp
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install /path/to/mylib_cpp-...whl
+python -m pip install -e ".[dev]"
+```
+
+## Option 2: Build wheel from source, then install
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip wheel ../../cpp/pybind -w ../../dist/wheels
+python -m pip install --no-index --find-links ../../dist/wheels mylib-cpp
+python -m pip install -e ".[dev]"
 ```
 
 ## Run
 
 ```bash
-PYTHONPATH=../../cpp/build/python:src python -m examples.run_demo
-PYTHONPATH=../../cpp/build/python:src pytest -q tests
+python -m examples.run_demo
+pytest -q tests
 ```
 
 Optional Polars integration:
 
 ```bash
-PYTHONPATH=../../cpp/build/python:src python -m examples.polars_demo
+python -m examples.polars_demo
 ```

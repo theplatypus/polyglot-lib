@@ -6,7 +6,13 @@ from dataclasses import dataclass
 import numpy as np
 import numpy.typing as npt
 
-import mylib_cpp
+try:
+    import mylib_cpp
+except ImportError as exc:
+    raise ImportError(
+        "mylib_cpp is not installed. Install a wheel from GitHub Releases or build/install it "
+        "locally from cpp/pybind."
+    ) from exc
 
 FloatArray = npt.NDArray[np.float64]
 
