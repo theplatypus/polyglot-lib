@@ -13,8 +13,21 @@ cargo build -p mylib-c-abi --release
 
 ## Build C++ example against real library
 
+Approach A (single root for extracted release assets):
+
 ```bash
-cmake -S . -B build -DMYLIB_USE_MOCK=OFF -DMYLIB_LIB=$PWD/../../target/release/libmylib.a
+cmake -S . -B build -DMYLIB_USE_MOCK=OFF -DMYLIB_ROOT=/path/to/extracted/mylib
+cmake --build build
+./build/mylib_cpp_example
+```
+
+Approach B (explicit library/include paths):
+
+```bash
+cmake -S . -B build \
+  -DMYLIB_USE_MOCK=OFF \
+  -DMYLIB_INCLUDE_DIR=$PWD/../../include \
+  -DMYLIB_LIB=$PWD/../../target/release/libmylib.a
 cmake --build build
 ./build/mylib_cpp_example
 ```

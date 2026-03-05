@@ -155,12 +155,21 @@ Then build C++ example linked against real `libmylib`:
 ```bash
 cmake -S examples/cpp -B examples/cpp/build \
   -DMYLIB_USE_MOCK=OFF \
+  -DMYLIB_INCLUDE_DIR=$(pwd)/include \
   -DMYLIB_LIB=$(pwd)/target/release/libmylib.a
 cmake --build examples/cpp/build
 ./examples/cpp/build/mylib_cpp_example
 ```
 
-(Use `libmylib.so`/`dylib` if preferred.)
+For release assets, you can pass just a root directory:
+
+```bash
+cmake -S examples/cpp -B examples/cpp/build \
+  -DMYLIB_USE_MOCK=OFF \
+  -DMYLIB_ROOT=/path/to/extracted/mylib
+cmake --build examples/cpp/build
+./examples/cpp/build/mylib_cpp_example
+```
 
 ## CI
 
