@@ -67,6 +67,17 @@ npm install
 npm run dev
 ```
 
+Quick Node REPL smoke test from the unzipped folder:
+
+```bash
+node
+```
+
+```js
+const { add } = await import("./pkg/mylib_wasm.js");
+add(2, 3);
+```
+
 ### C/C++ native library + headers
 
 1. Download:
