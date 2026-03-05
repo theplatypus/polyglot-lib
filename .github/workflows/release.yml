@@ -237,6 +237,9 @@ jobs:
           - os: ubuntu-latest
             asset_os: linux
             asset_arch: x86_64
+          - os: ubuntu-24.04-arm
+            asset_os: linux
+            asset_arch: aarch64
           # - os: macos-13
           #   asset_os: macos
           #   asset_arch: x86_64
