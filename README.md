@@ -49,7 +49,7 @@ If you want to run the Python example client with the installed wheel:
 
 ```bash
 python -m pip install -e "examples/python[dev]"
-PYTHONPATH=examples/python/src python -m examples.run_demo
+python -m examples.run_demo
 ```
 
 ### WASM package
@@ -65,6 +65,17 @@ cp /tmp/mylib-wasm/* cpp/wasm/build/
 cd examples/web
 npm install
 npm run dev
+```
+
+Quick Node REPL smoke test from the unzipped folder:
+
+```bash
+node
+```
+
+```js
+const { add } = await import("./pkg/mylib_wasm.js");
+add(2, 3);
 ```
 
 ### C/C++ native library + headers
@@ -95,15 +106,16 @@ ctest --test-dir cpp/build --output-on-failure
 ## 2) Build Python extension (pybind11)
 
 ```bash
-cmake -S cpp -B cpp/build -DMYLIB_BUILD_PYTHON=ON
-cmake --build cpp/build --target mylib_cpp
+python -m pip wheel ./cpp/pybind -w ./dist/wheels
+python -m pip install --no-index --find-links ./dist/wheels mylib-cpp
+python -m pip install -e "examples/python[dev]"
 ```
 
 Run Python demo/tests:
 
 ```bash
-PYTHONPATH=cpp/build/python:examples/python/src python -m examples.run_demo
-PYTHONPATH=cpp/build/python:examples/python/src pytest -q examples/python/tests
+python -m examples.run_demo
+pytest -q examples/python/tests
 ```
 
 ## 3) Build wasm with Emscripten and run web example
@@ -137,8 +149,19 @@ Then build/run client example:
 ```bash
 cmake -S examples/cpp -B examples/cpp/build \
   -DMYLIB_USE_MOCK=OFF \
+  -DMYLIB_INCLUDE_DIR=$(pwd)/include \
   -DMYLIB_LIB=$(pwd)/cpp/build/libmylib_c_api.a \
   -DMYLIB_CORE_LIB=$(pwd)/cpp/build/libmylib_core.a
+cmake --build examples/cpp/build
+./examples/cpp/build/mylib_cpp_example
+```
+
+For release assets, you can pass just a root directory:
+
+```bash
+cmake -S examples/cpp -B examples/cpp/build \
+  -DMYLIB_USE_MOCK=OFF \
+  -DMYLIB_ROOT=/path/to/extracted/mylib
 cmake --build examples/cpp/build
 ./examples/cpp/build/mylib_cpp_example
 ```

@@ -26,12 +26,14 @@ jobs:
           python-version: "3.11"
       - name: Install test deps
         run: python -m pip install --upgrade pip numpy pytest
-      - name: Configure with pybind
-        run: cmake -S cpp -B cpp/build -DMYLIB_BUILD_PYTHON=ON
-      - name: Build extension
-        run: cmake --build cpp/build --target mylib_cpp --config Release
+      - name: Build wheel from cpp/pybind
+        run: python -m pip wheel ./cpp/pybind -w wheelhouse
+      - name: Install mylib_cpp wheel + examples package
+        run: |
+          python -m pip install --no-index --find-links wheelhouse mylib-cpp
+          python -m pip install -e "examples/python[dev]"
       - name: Run pytest
-        run: PYTHONPATH=cpp/build/python:examples/python/src pytest -q examples/python/tests
+        run: pytest -q examples/python/tests
 
   emscripten:
     runs-on: ubuntu-latest

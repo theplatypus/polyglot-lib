@@ -6,7 +6,7 @@ build-backend = "scikit_build_core.build"
 name = "mylib-cpp"
 version = "0.1.0"
 description = "pybind11 bindings for polyglot_lib cpp-core branch"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = ["numpy>=1.26"]
 
 [tool.scikit-build]
