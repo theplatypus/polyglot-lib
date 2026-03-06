@@ -49,6 +49,19 @@ else()
         "${MYLIB_ROOT}/lib64"
       NO_DEFAULT_PATH
     )
+    if(NOT _mylib_lib_path)
+      foreach(_candidate
+        "${MYLIB_ROOT}/libmylib_c_api.a"
+        "${MYLIB_ROOT}/libmylib_c_api.so"
+        "${MYLIB_ROOT}/libmylib_c_api.dylib"
+        "${MYLIB_ROOT}/mylib_c_api.lib"
+        "${MYLIB_ROOT}/mylib_c_api.dll")
+        if(EXISTS "${_candidate}")
+          set(_mylib_lib_path "${_candidate}")
+          break()
+        endif()
+      endforeach()
+    endif()
   elseif(EXISTS "${MYLIB_SOURCE_C_API_LIB}")
     set(_mylib_lib_path "${MYLIB_SOURCE_C_API_LIB}")
   endif()
@@ -71,6 +84,19 @@ else()
         "${MYLIB_ROOT}/lib64"
       NO_DEFAULT_PATH
     )
+    if(NOT _mylib_core_lib_path)
+      foreach(_candidate
+        "${MYLIB_ROOT}/libmylib_core.a"
+        "${MYLIB_ROOT}/libmylib_core.so"
+        "${MYLIB_ROOT}/libmylib_core.dylib"
+        "${MYLIB_ROOT}/mylib_core.lib"
+        "${MYLIB_ROOT}/mylib_core.dll")
+        if(EXISTS "${_candidate}")
+          set(_mylib_core_lib_path "${_candidate}")
+          break()
+        endif()
+      endforeach()
+    endif()
   elseif(EXISTS "${MYLIB_SOURCE_CORE_LIB}")
     set(_mylib_core_lib_path "${MYLIB_SOURCE_CORE_LIB}")
   endif()

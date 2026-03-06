@@ -166,6 +166,18 @@ cmake --build examples/cpp/build
 ./examples/cpp/build/mylib_cpp_example
 ```
 
+Most portable option is to pass explicit include and lib paths:
+
+```bash
+cmake -S examples/cpp -B examples/cpp/build \
+  -DMYLIB_USE_MOCK=OFF \
+  -DMYLIB_INCLUDE_DIR=/path/to/extracted/mylib/include \
+  -DMYLIB_LIB=/path/to/extracted/mylib/libmylib_c_api.a \
+  -DMYLIB_CORE_LIB=/path/to/extracted/mylib/libmylib_core.a
+cmake --build examples/cpp/build
+./examples/cpp/build/mylib_cpp_example
+```
+
 ## CI
 
 `ci-cpp-core` runs:
