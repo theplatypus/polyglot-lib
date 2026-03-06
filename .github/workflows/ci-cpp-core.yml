@@ -30,7 +30,7 @@ jobs:
         run: python -m pip wheel ./cpp/pybind -w wheelhouse
       - name: Install mylib_cpp wheel + examples package
         run: |
-          python -m pip install --no-index --find-links wheelhouse mylib-cpp
+          python -m pip install --no-index --find-links wheelhouse --no-deps mylib-cpp
           python -m pip install -e "examples/python[dev]"
       - name: Run pytest
         run: pytest -q examples/python/tests

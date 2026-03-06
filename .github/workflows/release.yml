@@ -110,7 +110,7 @@ jobs:
         shell: bash
         run: |
           python -m pip install --upgrade pip
-          python -m pip install --no-index --find-links wheelhouse mylib-cpp
+          python -m pip install --no-index --find-links wheelhouse --no-deps mylib-cpp
           python -m pip install -e "examples/python[dev]"
 
       - name: Run pytest against examples/python/tests
