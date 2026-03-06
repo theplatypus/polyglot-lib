@@ -83,13 +83,6 @@ EOF
 node smoke_cpp.mjs
 ```
 
-If you test the Rust-style wasm-pack output (`pkg_rs/`), use:
-
-```js
-const { add } = await import("./pkg_rs/mylib_wasm.js");
-add(2, 3);
-```
-
 ### C/C++ native library + headers
 
 1. Download:

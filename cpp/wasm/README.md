@@ -30,11 +30,3 @@ EOF
 
 node smoke_cpp.mjs
 ```
-
-If you use an older prebuilt release and still see `fetch failed`, update
-`mylib_wasm_glue.js` so its init forwards options:
-
-```js
-// before: moduleInstance = await createModule();
-moduleInstance = await createModule(options);
-```
