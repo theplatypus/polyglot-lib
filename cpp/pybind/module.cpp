@@ -34,7 +34,7 @@ std::vector<mylib::Point2> points_from_array(const py::array_t<double, py::array
   std::vector<mylib::Point2> out;
   out.reserve(static_cast<std::size_t>(arr.shape(0)));
   auto a = arr.unchecked<2>();
-  for (ssize_t i = 0; i < arr.shape(0); ++i) {
+  for (py::ssize_t i = 0; i < arr.shape(0); ++i) {
     out.push_back(mylib::Point2{a(i, 0), a(i, 1)});
   }
   return out;
@@ -44,8 +44,8 @@ py::array_t<double> points_to_array(const std::vector<mylib::Point2>& points) {
   py::array_t<double> out(std::vector<py::ssize_t>{static_cast<py::ssize_t>(points.size()), 2});
   auto m = out.mutable_unchecked<2>();
   for (std::size_t i = 0; i < points.size(); ++i) {
-    m(static_cast<ssize_t>(i), 0) = points[i].x;
-    m(static_cast<ssize_t>(i), 1) = points[i].y;
+    m(static_cast<py::ssize_t>(i), 0) = points[i].x;
+    m(static_cast<py::ssize_t>(i), 1) = points[i].y;
   }
   return out;
 }
@@ -74,7 +74,7 @@ PYBIND11_MODULE(mylib_cpp, m) {
     std::memcpy(yv.data(), y.data(), y.size() * sizeof(double));
     auto r = mylib::axpy(a, xv, yv);
     if (!r.ok) throw_py(r.error);
-    py::array_t<double> out(static_cast<ssize_t>(r.value.size()));
+    py::array_t<double> out(static_cast<py::ssize_t>(r.value.size()));
     std::memcpy(out.mutable_data(), r.value.data(), r.value.size() * sizeof(double));
     return out;
   });
@@ -140,7 +140,7 @@ PYBIND11_MODULE(mylib_cpp, m) {
     auto r = mylib::sum_axis0(
         mylib::MatRef{x.data(), static_cast<std::size_t>(x.shape(0)), static_cast<std::size_t>(x.shape(1))});
     if (!r.ok) throw_py(r.error);
-    py::array_t<double> out(static_cast<ssize_t>(r.value.size()));
+    py::array_t<double> out(static_cast<py::ssize_t>(r.value.size()));
     std::memcpy(out.mutable_data(), r.value.data(), r.value.size() * sizeof(double));
     return out;
   });
@@ -165,8 +165,8 @@ PYBIND11_MODULE(mylib_cpp, m) {
     if (!r.ok) throw_py(r.error);
     auto outm = out.mutable_unchecked<2>();
     for (std::size_t i = 0; i < r.value; ++i) {
-      outm(static_cast<ssize_t>(i), 0) = tmp[i].x;
-      outm(static_cast<ssize_t>(i), 1) = tmp[i].y;
+      outm(static_cast<py::ssize_t>(i), 0) = tmp[i].x;
+      outm(static_cast<py::ssize_t>(i), 1) = tmp[i].y;
     }
     return static_cast<std::size_t>(r.value);
   });
