@@ -69,7 +69,7 @@ jobs:
           package-dir: ${{ env.PY_PACKAGE_DIR }}
           output-dir: dist/wheels
         env:
-          CIBW_BUILD: cp310-* cp311-* cp312-*
+          CIBW_BUILD: cp310-* cp311-* cp312-* cp313-* cp314-*
           CIBW_SKIP: pp* *-musllinux_* *-win32
           CIBW_ARCHS: ${{ matrix.cibw_archs }}
           CIBW_TEST_REQUIRES: numpy
