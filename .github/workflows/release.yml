@@ -47,10 +47,10 @@ jobs:
             asset_os: linux
             asset_arch: aarch64
             cibw_archs: aarch64
-          - os: macos-13
-            asset_os: macos
-            asset_arch: x86_64
-            cibw_archs: x86_64
+          # - os: macos-13
+          #   asset_os: macos
+          #   asset_arch: x86_64
+          #   cibw_archs: x86_64
           - os: macos-14
             asset_os: macos
             asset_arch: arm64
@@ -202,9 +202,9 @@ jobs:
           - os: ubuntu-24.04-arm
             asset_os: linux
             asset_arch: aarch64
-          - os: macos-13
-            asset_os: macos
-            asset_arch: x86_64
+          # - os: macos-13
+          #   asset_os: macos
+          #   asset_arch: x86_64
           - os: macos-latest
             asset_os: macos
             asset_arch: arm64
