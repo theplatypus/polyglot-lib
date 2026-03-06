@@ -67,14 +67,26 @@ npm install
 npm run dev
 ```
 
-Quick Node REPL smoke test from the unzipped folder:
+Quick Node smoke test from the unzipped folder:
 
 ```bash
-node
+cat > smoke_cpp.mjs <<'EOF'
+import { readFile } from "node:fs/promises";
+import initCppWasm, { add } from "./pkg_cpp/mylib_wasm_glue.js";
+
+const wasmBinary = await readFile(new URL("./pkg_cpp/mylib_wasm_core.wasm", import.meta.url));
+await initCppWasm({ wasmBinary });
+
+console.log(add(2, 3));
+EOF
+
+node smoke_cpp.mjs
 ```
 
+If you test the Rust-style wasm-pack output (`pkg_rs/`), use:
+
 ```js
-const { add } = await import("./pkg/mylib_wasm.js");
+const { add } = await import("./pkg_rs/mylib_wasm.js");
 add(2, 3);
 ```
 

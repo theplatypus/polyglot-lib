@@ -47,9 +47,9 @@ const allocF64 = (arr) => {
 
 const allocPoints = (pointsFlat) => allocF64(pointsFlat);
 
-export default async function init() {
+export default async function init(options = {}) {
   if (!moduleInstance) {
-    moduleInstance = await createModule();
+    moduleInstance = await createModule(options);
   }
   return moduleInstance;
 }
